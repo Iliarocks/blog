@@ -1,8 +1,7 @@
-(require '[clojure.java.io :as io])
+(ns site
+  (:require [clojure.java.io :as io]))
 
 (def output-path "public/index.html")
-
-(io/make-parents output-path)
 
 (def home
   (str "<!doctype html>\n"
@@ -20,7 +19,10 @@
        "  </body>\n"
        "</html>\n"))
 
-(spit output-path home)
+(defn build! []
+  (io/make-parents output-path)
+  (spit output-path home)
+  output-path)
 
-(slurp output-path)
+(build!)
 
